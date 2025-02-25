@@ -1,0 +1,20 @@
+services:
+  db: 
+    container_name: mysqlHeroes
+    image: mysql:9.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=kindred
+      - MYSQL_DATABASE=heroes  # Crea la base de datos PruebaIA
+    ports:
+      - 3306:3306  # Exponer el puerto de MySQL en el host
+
+  phpmyadmin:
+    container_name: phpMyAdminHeroes
+    depends_on:
+      - db
+    image: phpmyadmin:apache
+    environment:
+      - PMA_HOST=db  # Conectar phpMyAdmin al servicio db
+      - PMA_PORT=3306
+    ports:
+      - 8080:80  # Exponer phpMyAdmin en el puerto 8080
