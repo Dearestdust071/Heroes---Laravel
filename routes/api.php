@@ -19,6 +19,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::prefix('productos')->group(function () {
+        Route::post('/insert', [ProductoController::class, 'insertProducto']);
         Route::post('/filtered', [ProductoController::class, 'getProductos']);
         Route::get('/{producto_id}', [ProductoController::class, 'getProductoById'])->where('producto_id', '[0-9]+');
         Route::put('/{producto_id}', [ProductoController::class, 'updateProducto'])->where('producto_id', '[0-9]+');
