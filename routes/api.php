@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductoController;
+use App\Http\Controllers\CategoriasController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // SI EN ALGUN PUTO MOMENTO TE TIRA ERROR QUE NO SE QUE LOGIN METHOD NO ENONTRADO O ALGUNA COSA ASI 
@@ -22,9 +23,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::prefix('productos')->group(function () {
     Route::post('/insert', [ProductoController::class, 'insertProducto']);
     Route::post('/filtered', [ProductoController::class, 'getProductos']);
-    Route::get('', [ProductoController::class, 'getCategorias']);
+    Route::get('/categorias', [ProductoController::class, 'getCategorias']);
     Route::get('/{producto_id}', [ProductoController::class, 'getProductoById'])->where('producto_id', '[1-9]+');
     Route::put('/{producto_id}', [ProductoController::class, 'updateProducto'])->where('producto_id', '[0-9]+');
     Route::delete('/{producto_id}', [ProductoController::class, 'deleteProducto'])->where('producto_id', '[0-9]+');
+  });
+  Route::prefix('categorias')->group(function () {
+    Route::get('', [CategoriasController::class, 'index']);
+    Route::put('/{categoria_id}', [CategoriasController::class, 'cambiarEstatus']);
   });
 });
